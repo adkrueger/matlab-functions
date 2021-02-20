@@ -1,6 +1,5 @@
 function [alpha,beta,gamma] = dcm_conv(Q,output,range)
-%DCM_CONV Converts direction cosine matrix to classical euler or yaw pitch 
-%         roll sequence
+%DCM_CONV Convert DCM to classical euler or yaw pitch roll sequence
 %   Inputs are:
 %   Q      :a numeric array of 3x3 direction cosine matrix
 %   output :a string desired output sequence ('euler' or 'ypr')
