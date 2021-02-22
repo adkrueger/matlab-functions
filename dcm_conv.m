@@ -33,7 +33,7 @@ function [alpha,beta,gamma] = dcm_conv(Q,output,range)
             error('Invalid output sequence')
     end
 
-%  Converts angles to correct range
+%  Converts angles to desired range
     switch range
         case '+/-pi'
             return
