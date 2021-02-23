@@ -2,7 +2,8 @@ function xdot = xdot_3dof_orbit(x,mu)
 %XDOT_3DOF_ORBIT Equations of motion for orbiting body with 3DOF
 %   Inputs are:
 %   x      :a numeric array of Mx1 current state vector in m and m/s
-%   mu     :an optional scalar gravitational parameter in m^3/s^2
+%   mu     :an optional scalar gravitational parameter in m^3/s^2 (default
+%           earth)
 %   
 %   Output is:
 %   xdot   :a numeric array of Mx1 current xdot vector in m/s and m/s^2
