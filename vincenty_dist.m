@@ -3,19 +3,19 @@ function d = vincenty_dist(lat1,long1,lat2,long2)
 %   Inputs are:
 %   lat1  :a scalar origin latitude in degrees
 %   long1  :a scalar origin longitdue in degrees
-%   lat2  :a numeric array Mx1 destination latitude in degrees
-%   long2  :a numeric array Mx1 desination longitdue in degrees
+%   lat2  :a numeric array 1xN destination latitude in degrees
+%   long2  :a numeric array 1xN desination longitdue in degrees
 % 
 %   Output is:
-%   d      :a numeric array of Mx1 distance to target in m
+%   d      :a numeric array of 1xN distance to target in m
 % 
 %   Reference: https://en.wikipedia.org/wiki/Vincenty%27s_formulae
 
     arguments
         lat1 {mustBeScalarOrEmpty, mustBeNumeric, mustBeReal}
         long1 {mustBeScalarOrEmpty, mustBeNumeric, mustBeReal}
-        lat2 (:,1) {mustBeNumeric, mustBeReal}
-        long2 (:,1) {mustBeNumeric, mustBeReal}
+        lat2 (1,:) {mustBeNumeric, mustBeReal}
+        long2 (1,:) {mustBeNumeric, mustBeReal}
     end
     
 %   WGS84 properties

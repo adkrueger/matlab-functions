@@ -1,15 +1,15 @@
 function [T,P,rho] = stdatm(h)
 % STDATM Atmospheric properties based on ISA
 %   Inputs are:
-%   h      :a numeric array of Mx1 geopotential altitude in m
+%   h      :a numeric array of 1xN geopotential altitude in m
 %
 %   Outputs are: 
-%   T      :a numeric array of Mx1 air temperature in K
-%   P      :a numeric array of Mx1 air pressure in Pa
-%   rho    :a numeric array of Mx1 air density in kg/m^3
+%   T      :a numeric array of 1xN air temperature in K
+%   P      :a numeric array of 1xN air pressure in Pa
+%   rho    :a numeric array of 1xN air density in kg/m^3
 
     arguments
-       h (:,1) {mustBeNumeric, mustBeReal} 
+       h (1,:) {mustBeNumeric, mustBeReal} 
     end
 
     [T,P,rho] = deal(zeros(length(h),1));

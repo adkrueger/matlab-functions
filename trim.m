@@ -2,17 +2,17 @@ function [alpha,deltae] = trim(aircraft,h,v)
 %TRIM Trim AOA and elevator deflection angles
 %   Inputs are:
 %   aircraft  :a struct aircraft data in SI
-%   h         :a numeric array of Mx1 aircraft altitude in m
-%   v         :a numeric array of Mx1 aircraft velocity in m/s
+%   h         :a numeric array of 1xN aircraft altitude in m
+%   v         :a numeric array of 1xN aircraft velocity in m/s
 % 
 %   Outputs are: 
-%   alpha     :a numeric array of Mx1 angle of attack in rad
-%   deltae    :a numeric array of Mx1 elevator deflection in rad
+%   alpha     :a numeric array of 1xN angle of attack in rad
+%   deltae    :a numeric array of 1xN elevator deflection in rad
 
     arguments
         aircraft {mustBeA(aircraft,"struct")}
-        h (:,1) {mustBeNumeric, mustBeReal}
-        v (:,1) {mustBeNumeric, mustBeReal}
+        h (1,:) {mustBeNumeric, mustBeReal}
+        v (1,:) {mustBeNumeric, mustBeReal}
     end
     
     W = aircraft.W;

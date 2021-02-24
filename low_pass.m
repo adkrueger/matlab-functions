@@ -1,12 +1,12 @@
 function y = low_pass(t,x,cutoff)
 %LOW_PASS Low Pass Filter
 %   Inputs are:
-%   t      :a numeric array of M time in seconds
-%   x      :a numeric array of M tracked variable
+%   t      :a numeric array of 1xN time in seconds
+%   x      :a numeric array of 1xN tracked variable
 %   cutoff :a scalar cutoff frequency in rad/s
 % 
 %   Output is:
-%   y      :a numeric array of M filtered tracked variable
+%   y      :a numeric array of 1xN filtered tracked variable
     
     arguments
         t (1,:) {mustBeNumeric, mustBeReal}

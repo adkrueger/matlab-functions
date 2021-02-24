@@ -3,20 +3,20 @@ function radius = turn_radius(aircraft,h,v)
 %             as well as the cruise conditions.
 %   Inputs are:
 %   aircraft   :a struct aircraft data in SI
-%   h          :a numeric array of Mx1 altitude in m
-%   v          :a numeric array of Mx1 cruise speed in m/s
+%   h          :a numeric array of 1xN altitude in m
+%   v          :a numeric array of 1xN cruise speed in m/s
 %
 %   Output is:
-%   radius     :a numeric array of Mx1 minimum turn radius in m
+%   radius     :a numeric array of 1xN minimum turn radius in m
 
     arguments
         aircraft {mustBeA(aircraft,"struct")}
-        h (:,1) {mustBeNumeric, mustBeReal}
-        v (:,1) {mustBeNumeric, mustBeReal}
+        h (1,:) {mustBeNumeric, mustBeReal}
+        v (1,:) {mustBeNumeric, mustBeReal}
     end
     
     W = aircraft.W;
-    S = aircraft.S;
+    S_w = aircraft.S_w;
     Cd_0 = aircraft.Cd_0;
     Cl_max = aircraft.Cl_max;
     K = aircraft.K;
@@ -36,8 +36,8 @@ function radius = turn_radius(aircraft,h,v)
     T = Tsl.*(rho./1.225); % thrust at altitude (N)
 
     nmax_s = nmax_s.*ones(1,length(h));
-    nmax_t = sqrt((Q./(K.*W./S)).*((T./W)-((Q.*Cd_0)./(W./S))));
-    nmax_alpha = (Q.*Cl_max)./(W./S);
+    nmax_t = sqrt((Q./(K.*W./S_w)).*((T./W)-((Q.*Cd_0)./(W./S_w))));
+    nmax_alpha = (Q.*Cl_max)./(W./S_w);
     
     radius = zeros(1,length(h));
     for i = 1:length(h)
