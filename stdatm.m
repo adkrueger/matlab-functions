@@ -12,7 +12,7 @@ function [T,P,rho] = stdatm(h)
        h (:,1) {mustBeNumeric, mustBeReal} 
     end
 
-    [T,P,rho] = deal(zeros(1,length(h)));
+    [T,P,rho] = deal(zeros(length(h),1));
     for i = 1:length(h)
         if h(i) <= 11000
             T(i) = 288.16 + (-6.5e-3).*h(i);
