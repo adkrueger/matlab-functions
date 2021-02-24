@@ -10,12 +10,6 @@ function [absolute, service] = ceiling(aircraft)
     arguments
         aircraft {mustBeA(aircraft,"struct")}
     end
-    
-    W = aircraft.W;
-    S = aircraft.S;
-    Cd_0 = aircraft.Cd_0;
-    K = aircraft.K;
-    Tsl = aircraft.Tsl;
 
     function arg3 = out(aircraft,x)
         [~,~,arg3] = steady_climb(aircraft,x);
