@@ -105,7 +105,7 @@ if nargout == 0
     props.Cdata = topo2;
 
     % Create the sphere with Earth topography and adjust colormap
-    surface(x,y,z,props,'parent',cax)
+    surface(x,y,z,props,'parent',cax,'HandleVisibility','off')
     colormap(topomap1)
 
 % Replace the calls to surface and colormap with these lines if you do 
