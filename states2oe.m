@@ -7,12 +7,18 @@ function [h_mag,e,RA,incl,w,TA,a] = states2oe(r,v,mu)
 %           earth)
 % 
 %   Outputs are:
-%   h      :a scalar specific angular momentum in m^2/s
+%   h_mag  :a scalar specific angular momentum in m^2/s
+%   e      :a scalar orbital eccentricy
+%   RA     :a scalar right ascension of the ascending node in rad
+%   incl   :a scalar orbital inclination
+%   W      :a scalar argument of perigee in rad
+%   TA     :a scalar true anomaly in rad
+%   a      :a scalar semi major axis in m
 
     arguments
         r (3,1) {mustBeNumeric, mustBeReal}
         v (3,1) {mustBeNumeric, mustBeReal}
-        mu {mustBeNumeric, mustBeReal} = 3.986004418e14
+        mu {mustBeScalarOrEmpty, mustBeNumeric, mustBeReal} = 3.98600442e14
     end
 
 %   Magnitudes of postion and velocity vectors
