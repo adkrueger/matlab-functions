@@ -1,5 +1,5 @@
 function Q = euler_rot(alpha,beta,gamma,seq)
-%EULER_ROT Euler Rotation Matrix for any rotation sequence
+%EULER_ROT Euler rotation matrix for any rotation sequence
 %   Inputs are:
 %   alpha  :a scalar alpha angle in rad
 %   beta   :a scalar beta angle in rad
@@ -34,12 +34,12 @@ function Q = euler_rot(alpha,beta,gamma,seq)
     
     Q = Q_cell{1}*Q_cell{2}*Q_cell{3};% Direction Cosine Matrix
     
-    function Ra_b = rot_1(ang)
-        Ra_b = [1,0,0;0,cos(ang),sin(ang);0,-sin(ang),cos(ang)];
+    function R = rot_1(ang)
+        R = [1,0,0;0,cos(ang),sin(ang);0,-sin(ang),cos(ang)];
     end
 
-    function Ra_b = rot_2(ang)
-        Ra_b = [cos(ang),0,-sin(ang);0,1,0;sin(ang),0,cos(ang)];
+    function R = rot_2(ang)
+        R = [cos(ang),0,-sin(ang);0,1,0;sin(ang),0,cos(ang)];
     end
 
     function Ra_b = rot_3(ang)
