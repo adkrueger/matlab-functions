@@ -35,8 +35,11 @@ function [alpha,deltae] = trim(aircraft,h,v)
     Cl_deltae = (S_t./S_w).*Cl_deltae_t;
     Cm_deltae = Cl_deltae.*(h_cm-h_ac)-Cl_deltae_t.*V_H;
     
-    trim_cond = [Cl_alpha,Cl_deltae;Cm_alpha,Cm_deltae]\[Cw-Cl_0;-Cm_0];
-    alpha = trim_cond(1);
-    deltae = trim_cond(2);
+    [alpha,deltae] = deal(zeros(1,length(h)));
+    for i = 1:length(Cw)
+        trim_cond = [Cl_alpha,Cl_deltae;Cm_alpha,Cm_deltae]\[Cw(i)-Cl_0;-Cm_0];
+        alpha(i) = trim_cond(1);
+        deltae(i) = trim_cond(2);
+    end
 end
 
