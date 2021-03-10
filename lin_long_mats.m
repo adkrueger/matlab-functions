@@ -1,6 +1,13 @@
 function [A,B] = lin_long_mats(aircraft,v,theta)
 %LIN_LONG_MATS Linearized Longitudinal Matrices
-%   Detailed explanation goes here
+%   Inputs are:
+%   aircraft   :a struct aircraft data in SI
+%   v          :a numeric array of 1xN velocity in m/s
+%   theta      :a numeric array of 1xN angle of attack in rad
+% 
+%   Outputs are:
+%   A          :a numeric array of 6x6 linearized A matrix
+%   B          :a numeric array of 6x1 linearized B matrix
     
     arguments
         aircraft {mustBeA(aircraft,"struct")}
