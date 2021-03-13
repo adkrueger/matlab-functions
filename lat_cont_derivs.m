@@ -16,7 +16,7 @@ function [Y_delta,l_delta,N_delta] = lat_cont_derivs(aircraft,h,v)
         v (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    S = aircraft.S;
+    S = aircraft.S_w;
     b = aircraft.b;
     
     Cy_deltaa = aircraft.Cy_deltaa;

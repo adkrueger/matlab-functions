@@ -18,8 +18,8 @@ function [X,Z,M] = long_stab_derivs(aircraft,h,v,theta)
         theta (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    m = aircraft.W/9.81;
-    S = aircraft.S;
+    m = aircraft.W;
+    S = aircraft.S_w;
     c = aircraft.c;
     
     Cl = aircraft.Cl_0 + aircraft.Cl_alpha*theta;
@@ -45,8 +45,8 @@ function [X,Z,M] = long_stab_derivs(aircraft,h,v,theta)
     X_wdot = 0;
     X = [X_u,X_w,X_q,X_wdot];
     
-    Z_u = 2.*((m.*9.81)./v).*cos(theta)-0.5.*rho.*v.*S.*(Cl_u+2.*Cl);
-    Z_w = 0.5.*rho.*v.*S.*(Cd-Cl_alpha);
+    Z_u = -2.*((m.*9.81)./v).*cos(theta)-0.5.*rho.*v.*S.*(Cl_u+2.*Cl);
+    Z_w = -0.5.*rho.*v.*S.*(Cd-Cl_alpha);
     Z_q = -0.25.*rho.*v.*S.*c.*Cm_u;
     Z_wdot = -0.25.*rho.*S.*c.*Cl_alphadot;
     Z = [Z_u,Z_w,Z_q,Z_wdot];

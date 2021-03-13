@@ -16,7 +16,7 @@ function [X_deltae,Z_deltae,M_deltae] = long_cont_derivs(aircraft,h,v)
         v (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    S = aircraft.S;
+    S = aircraft.S_w;
     c = aircraft.c;
     
     Cl_deltae = aircraft.Cl_deltae;

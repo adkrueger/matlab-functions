@@ -16,7 +16,7 @@ function [Y,l,N] = lat_stab_derivs(aircraft,h,v)
         v (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    S = aircraft.S;
+    S = aircraft.S_w;
     b = aircraft.b;
     
     Cy_beta = aircraft.Cy_beta;
