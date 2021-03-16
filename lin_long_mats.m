@@ -15,7 +15,7 @@ function [A,B] = lin_long_mats(aircraft,v,theta)
         theta (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    m = aircraft.W/9.81;
+    m = aircraft.W/9.80665;
     Iyy = aircraft.Iyy;
     u = v*cos(theta);
     

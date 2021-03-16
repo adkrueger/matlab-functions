@@ -18,7 +18,7 @@ function [X,Z,M] = long_stab_derivs(aircraft,h,v,theta)
         theta (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    m = aircraft.W;
+    m = aircraft.W/9.80665;
     S = aircraft.S_w;
     c = aircraft.c;
     
