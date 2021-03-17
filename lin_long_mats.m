@@ -1,7 +1,8 @@
-function [A,B] = lin_long_mats(aircraft,v,theta)
+function [A,B] = lin_long_mats(aircraft,h,v,theta)
 %LIN_LONG_MATS Linearized Longitudinal Matrices
 %   Inputs are:
 %   aircraft   :a struct aircraft data in SI
+%   h          :a numeric array of 1xN altitude in m
 %   v          :a numeric array of 1xN velocity in m/s
 %   theta      :a numeric array of 1xN angle of attack in rad
 % 
@@ -11,13 +12,16 @@ function [A,B] = lin_long_mats(aircraft,v,theta)
     
     arguments
         aircraft {mustBeA(aircraft,"struct")}
+        h (1,:) {mustBeNumeric, mustBeReal}
         v (1,:) {mustBeNumeric, mustBeReal}
         theta (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    m = aircraft.W/9.80665;
+    g = 9.80665.*(6.3781e6./(6.3781e6+h)).^2;
+    
+    m = aircraft.W/g;
     Iyy = aircraft.Iyy;
-    u = v*cos(theta);
+    u = v*cos(0);
     
     X_u = aircraft.X_u;
     X_w = aircraft.X_w;
@@ -37,11 +41,11 @@ function [A,B] = lin_long_mats(aircraft,v,theta)
     
     Mprime = M_wdot/(m-Z_wdot);
     
-    A = [X_u/m,X_w/m,0,-9.81*cos(theta),0,0;
+    A = [X_u/m,X_w/m,0,-g*cos(theta),0,0;
         Z_u/(m-Z_wdot),Z_w/(m-Z_wdot),(Z_q+m*u)/(m-Z_wdot),...
-            (-m*9.81*sin(theta))/(m-Z_wdot),0,0;
+            (-m*g*sin(theta))/(m-Z_wdot),0,0;
         (M_u+Mprime*Z_u)/Iyy,(M_w+Mprime*Z_w)/Iyy,...
-            (M_q+Mprime*(Z_q+m*u))/(Iyy),(Mprime*m*9.81*sin(theta))/Iyy,0,0;
+            (M_q+Mprime*(Z_q+m*u))/(Iyy),(Mprime*m*g*sin(theta))/Iyy,0,0;
         0,0,1,0,0,0;
         -sin(theta),cos(theta),0,-v*cos(theta),0,0;
         cos(theta),sin(theta),0,-v*sin(theta),0,0];

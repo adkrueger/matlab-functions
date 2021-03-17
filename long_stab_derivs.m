@@ -18,7 +18,9 @@ function [X,Z,M] = long_stab_derivs(aircraft,h,v,theta)
         theta (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    m = aircraft.W/9.80665;
+    g = 9.80665.*(6.3781e6./(6.3781e6+h)).^2;
+    
+    m = aircraft.W/g;
     S = aircraft.S_w;
     c = aircraft.c;
     
@@ -26,6 +28,7 @@ function [X,Z,M] = long_stab_derivs(aircraft,h,v,theta)
     Cd = aircraft.Cd_0 + aircraft.Cd_alpha*theta;
     
     Cl_u = aircraft.Cl_u;
+    Cl_q = aircraft.Cl_q;
     Cl_alpha = aircraft.Cl_alpha;
     Cl_alphadot = aircraft.Cl_alphadot;
     
@@ -39,15 +42,15 @@ function [X,Z,M] = long_stab_derivs(aircraft,h,v,theta)
     
     [~,~,rho] = stdatm(h);
     
-    X_u = 2.*((m.*9.81)./v).*sin(theta)-0.5.*rho.*v.*S.*(Cd_u+2.*Cd);
+    X_u = 2.*((m.*g)./v).*sin(theta)-0.5.*rho.*v.*S.*(Cd_u+2.*Cd);
     X_w = 0.5.*rho.*v.*S.*(Cl-Cd_alpha);
     X_q = 0;
     X_wdot = 0;
     X = [X_u,X_w,X_q,X_wdot];
     
-    Z_u = -2.*((m.*9.81)./v).*cos(theta)-0.5.*rho.*v.*S.*(Cl_u+2.*Cl);
-    Z_w = -0.5.*rho.*v.*S.*(Cd-Cl_alpha);
-    Z_q = -0.25.*rho.*v.*S.*c.*Cm_u;
+    Z_u = -2.*((m.*g)./v).*cos(theta)-0.5.*rho.*v.*S.*(Cl_u+2.*Cl);
+    Z_w = -0.5.*rho.*v.*S.*(Cd+Cl_alpha);
+    Z_q = -0.25.*rho.*v.*S.*c.*Cl_q;
     Z_wdot = -0.25.*rho.*S.*c.*Cl_alphadot;
     Z = [Z_u,Z_w,Z_q,Z_wdot];
     

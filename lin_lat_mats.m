@@ -1,7 +1,8 @@
-function [A,B] = lin_lat_mats(aircraft,v,theta)
+function [A,B] = lin_lat_mats(aircraft,h,v,theta)
 %LIN_LAT_MATS Linearized Lateral Matrices
 %   Inputs are:
 %   aircraft   :a struct aircraft data in SI
+%   h          :a numeric array of 1xN altitude in m
 %   v          :a numeric array of 1xN velocity in m/s
 %   theta      :a numeric array of 1xN angle of attack in rad
 % 
@@ -11,11 +12,14 @@ function [A,B] = lin_lat_mats(aircraft,v,theta)
     
     arguments
         aircraft {mustBeA(aircraft,"struct")}
+        h (1,:) {mustBeNumeric, mustBeReal}
         v (1,:) {mustBeNumeric, mustBeReal}
         theta (1,:) {mustBeNumeric, mustBeReal}
     end
     
-    m = aircraft.W/9.81;
+    g = 9.80665.*(6.3781e6./(6.3781e6+h)).^2;
+    
+    m = aircraft.W/g;
     Ixx = aircraft.Ixx;
     Izz = aircraft.Izz;
     Ixz = aircraft.Ixz;
@@ -42,7 +46,7 @@ function [A,B] = lin_lat_mats(aircraft,v,theta)
     Izprime = (Ixx*Izz-Ixz^2)/Ixx;
     Ixzprime = Ixz/(Ixx*Izz-Ixz^2);
     
-    A = [Y_v/m,Y_p/m,-v+(Y_r/m),9.81*cos(theta),0,0;
+    A = [Y_v/m,Y_p/m,-v+(Y_r/m),g*cos(theta),0,0;
         (l_v/Ixprime)+Ixzprime*N_v,(l_p/Ixprime)+Ixzprime*N_p,...
             (l_r/Ixprime)+Ixzprime*N_r,0,0,0;
         (N_v/Izprime)+Ixzprime*l_v,(N_p/Izprime)+Ixzprime*l_p,...
@@ -54,8 +58,8 @@ function [A,B] = lin_lat_mats(aircraft,v,theta)
     B = [Y_deltaa/m,Y_deltar/m;
         (l_deltaa/Ixprime)+Ixzprime*N_deltaa,...
             (l_deltar/Ixprime)+Ixzprime*N_deltar;
-        (N_deltaa/Ixprime)+Ixzprime*l_deltaa,...
-            (N_deltar/Ixprime)+Ixzprime*l_deltar;
+        (N_deltaa/Izprime)+Ixzprime*l_deltaa,...
+            (N_deltar/Izprime)+Ixzprime*l_deltar;
             0,0;
             0,0;
             0,0];
