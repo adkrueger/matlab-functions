@@ -17,8 +17,8 @@ function x = rk4(func,h,x,u)
     end
 
     k1 = h * func(x,u);
-    k2 = h * func(x + (k1 / 2),u);
-    k3 = h * func(x + (k2 / 2),u);
+    k2 = h * func(x + (k1 * 0.5),u);
+    k3 = h * func(x + (k2 * 0.5),u);
     k4 = h * func(x + k3,u);
 
     x = x + ((1/6) * (k1 + 2*k2 + 2*k3 + k4));
