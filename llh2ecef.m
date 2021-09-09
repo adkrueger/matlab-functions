@@ -14,13 +14,14 @@ function P_ECEF = llh2ecef(P_LLH)
     lat = P_LLH(1); long = P_LLH(2); h = P_LLH(3);
     
 %   WGS84 Parameters
-    a = 6378137.0;
-%       b = 6356752.314245
+%   a = 6378137.0;
+%   b = 6356752.314245
 
+    inv_a = 1.567855942887398e-07;
     e_sq = 0.006694379990198;
     bbdaa = 0.993305620009802;
     
-    N = a/sqrt(1-e_sq*sin(lat)^2);
+    N = inv_a*sqrt(1-e_sq*sin(lat)^2);
     
     P_ECEF = [(N+h)*cos(lat)*cos(long);
         (N+h)*cos(lat)*sin(long);
