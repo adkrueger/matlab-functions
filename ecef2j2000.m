@@ -14,7 +14,7 @@ function P_J2000 = ecef2j2000(t,P_ECEF,omega)
     arguments
         t {mustBeScalarOrEmpty, mustBeNumeric, mustBeReal}
         P_ECEF (3,1) {mustBeNumeric, mustBeReal}
-        omega {mustBeScalarOrEmpty, mustBeNumeric, mustBeReal} = 10.*7.2921150e-5
+        omega {mustBeScalarOrEmpty, mustBeNumeric, mustBeReal} = 7.2921150e-5
     end
     
     H_g = omega*t;
